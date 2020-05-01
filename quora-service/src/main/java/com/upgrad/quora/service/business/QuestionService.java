@@ -29,23 +29,11 @@ public class QuestionService {
     @Autowired
     UserDao userDao;
 
-    /**
-     * method used for creating question instance in database.
-     *
-     * @param question question to be stored in database
-     * @return created question instance
-     */
     @Transactional(propagation = Propagation.REQUIRED)
     public Question createQuestion(Question question) {
         return questionDao.createQuestion(question);
     }
 
-    /**
-     * method used for getting questions for a authorized user
-     *
-     * @param uuId uuid of user whose questions are to be retrieved
-     * @return List of questions
-     */
     @Transactional(propagation = Propagation.REQUIRED)
     public List<Question> getQuestionsForUser(final String uuId) throws QuestionNotFoundException, UserNotFoundException {
         UserEntity user = userDao.getUser(uuId);
@@ -60,12 +48,6 @@ public class QuestionService {
         }
     }
 
-    /**
-     * methos used for getting all questions for any user.
-     *
-     * @return List of questions
-     * @throws QuestionNotFoundException exceptionto indicate no questions are available in database
-     */
     @Transactional(propagation = Propagation.REQUIRED)
     public List<Question> getAllQuestions() throws QuestionNotFoundException {
         List<Question> questionList = questionDao.getAllQuestions();
@@ -76,16 +58,6 @@ public class QuestionService {
         }
     }
 
-    /**
-     * method used to check if the question owner is asking for question.
-     *
-     * @param questionUuId   the question id required
-     * @param authorizedUser authorized user instance
-     * @param actionType     type of action done edit or delete
-     * @return Question Object
-     * @throws AuthorizationFailedException thrown if the user is not the owner of the question
-     * @throws InvalidQuestionException     thrown if the question does not exist
-     */
     @Transactional(propagation = Propagation.REQUIRED)
     public Question isUserQuestionOwner(String questionUuId, UserAuthEntity authorizedUser, ActionType actionType) throws AuthorizationFailedException, InvalidQuestionException {
         Question question = questionDao.getQuestion(questionUuId);
@@ -106,34 +78,16 @@ public class QuestionService {
         }
     }
 
-
-    /**
-     * method used to edit question.
-     *
-     * @param question question object to be edited in database
-     */
     @Transactional(propagation = Propagation.REQUIRED)
     public void editQuestion(Question question) {
         questionDao.editQuestion(question);
     }
 
-    /**
-     * method used for deleting the question
-     *
-     * @param question question object to be removed from Database.
-     */
     @Transactional(propagation = Propagation.REQUIRED)
     public void deleteQuestion(Question question) {
         questionDao.deleteQuestion(question);
     }
 
-    /**
-     * method used for getting question object for the specific question uuid
-     * Throws InvalidQuestionException if question is not found.
-     *
-     * @param questionUuId uuid of the question
-     * @return Question object
-     */
     public Question getQuestionForUuId(String questionUuId) throws InvalidQuestionException {
         Question question = questionDao.getQuestion(questionUuId);
         if (question == null) {

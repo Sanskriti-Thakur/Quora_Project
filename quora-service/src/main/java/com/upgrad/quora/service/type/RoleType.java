@@ -3,10 +3,7 @@ package com.upgrad.quora.service.type;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Enum used for defining the role of the user.
- * For admin user we have admin and for non-admin user we have nonadmin.
- */
+
 public enum RoleType {
 
     admin(0), nonadmin(1);

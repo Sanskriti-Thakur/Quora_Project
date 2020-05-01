@@ -23,15 +23,7 @@ public class UserAdminService {
     @Autowired
     private UserDao userDao;
 
-    /**
-     * Method used for creating a new user.
-     * It checks for uniques username and email. Throws appropriate exceptions if either of them is not unique.
-     * The password is encrypted and saved.
-     *
-     * @param userEntity user object to be created
-     * @return Createdd user object
-     * @throws SignUpRestrictedException exception thrown in case of non-unique username or email.
-     */
+
     @Transactional(propagation = Propagation.REQUIRED)
     public UserEntity createUser(final UserEntity userEntity) throws SignUpRestrictedException {
         UserEntity userNameEntity = userDao.checkUserName(userEntity.getUsername());
@@ -41,7 +33,6 @@ public class UserAdminService {
             throw new SignUpRestrictedException("SGR-001", "Try any other Username, this Username has already been taken");
         }
 
-        // Go for user creation only if email id are unique
         if (emailEntity != null && userEntity.getEmail().equals(emailEntity.getEmail())) {
             throw new SignUpRestrictedException("SGR-002", "This user has already been registered, try with any other emailId");
         }
@@ -52,19 +43,6 @@ public class UserAdminService {
         return userDao.createUser(userEntity);
     }
 
-
-    /**
-     * Method used to get the user details.
-     * The user asking for details is validated with his authorization token.
-     * If singed in, then the user is provided with the user details.
-     *
-     * @param userUuid           user uuid
-     * @param authorizationToken logged in used authorization token
-     * @param admin              boolean indicating whether is coming from admin or nonadmin purpose.
-     * @return User details
-     * @throws UserNotFoundException        thrown if user is not found
-     * @throws AuthorizationFailedException If the logged in user is not authorized to see the details.
-     */
     public UserEntity getUser(String userUuid, String authorizationToken, boolean admin) throws UserNotFoundException, AuthorizationFailedException {
         UserAuthEntity userAuthTokenEntity = userDao.getUserAuthToken(authorizationToken);
 
@@ -75,11 +53,11 @@ public class UserAdminService {
             }
         }
 
-        //if no auth token throw exception
+
         if (userAuthTokenEntity == null) {
             throw new AuthorizationFailedException("ATHR-001", "User has not signed in");
         }
-        //if user has signed out throw exception
+
         if (userAuthTokenEntity.getLogoutAt() != null) {
             if (userAuthTokenEntity.getUser().getRole().equals(RoleType.admin.toString())) {
                 throw new AuthorizationFailedException("ATHR-002", "User is signed out.");
@@ -95,14 +73,6 @@ public class UserAdminService {
         }
     }
 
-
-    /**
-     * Method used for deleting user from database.
-     * If user is not available then it will throw exception.
-     *
-     * @param userUuid uuid of the user logged in
-     * @throws UserNotFoundException Exception thrown if user to be deleted is not found in database
-     */
     @Transactional(propagation = Propagation.REQUIRED)
     public void deleteUser(String userUuid) throws UserNotFoundException {
 
@@ -114,14 +84,6 @@ public class UserAdminService {
         }
     }
 
-    /**
-     * method used for get user auth details for the user with right access token.
-     *
-     * @param authorizationToken access token value
-     * @param actionType         action type based on which we have to send various messages
-     * @return UserAuth Entity object
-     * @throws AuthorizationFailedException exception indicating user is not signed in or not signed out.
-     */
     public UserAuthEntity getUserByAccessToken(String authorizationToken, ActionType actionType) throws AuthorizationFailedException {
         UserAuthEntity userAuthTokenEntity = userDao.checkAuthToken(authorizationToken);
         if (userAuthTokenEntity == null) {

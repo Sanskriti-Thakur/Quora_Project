@@ -40,7 +40,7 @@ public class UserEntity {
     @Size(max = 30)
     private String lastName;
 
-    //unique indicates the value in this column should be unique
+
     @Column(name = "username", unique = true)
     @NotNull
     @Size(max = 30)

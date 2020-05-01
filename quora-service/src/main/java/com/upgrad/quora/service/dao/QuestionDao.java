@@ -9,9 +9,6 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 
-/**
- * DAO class for Question related database operations.
- */
 @Repository
 public class QuestionDao {
 
@@ -23,18 +20,11 @@ public class QuestionDao {
     @PersistenceContext
     private EntityManager entityManager;
 
-
-    /**
-     * method used for creating question instance in database.
-     */
     public Question createQuestion(Question question) {
         entityManager.persist(question);
         return question;
     }
 
-    /**
-     * method used for getting all questions for a specific users uuid.
-     */
     public List<Question> getAllQuestionsForUser(String uuId) {
         try {
             return entityManager
@@ -46,9 +36,6 @@ public class QuestionDao {
         }
     }
 
-    /**
-     * method used for getting all questions.
-     */
     public List<Question> getAllQuestions() {
         try {
             return entityManager
@@ -59,10 +46,6 @@ public class QuestionDao {
         }
     }
 
-    /**
-     * method used for getting question for the same owner
-   
-     */
     public Question getQuestion(String questionUuId) {
         try {
             return entityManager
@@ -74,19 +57,11 @@ public class QuestionDao {
         }
     }
 
-    /**
-     * method used for editing the question details in database.
-     
-     */
     public Question editQuestion(Question question) {
         entityManager.persist(question);
         return question;
     }
 
-    /**
-     * method used for deleting the question
-    
-     */
     public void deleteQuestion(Question question) {
         entityManager.remove(question);
     }
