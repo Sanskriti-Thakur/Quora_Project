@@ -61,12 +61,12 @@ public class UserController {
         return response;
     }
 
-    @RequestMapping(method = RequestMethod.POST, path = "user/signin", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(method = RequestMethod.POST, path = "/user/signin", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 
 
-    public ResponseEntity<SigninResponse> signin(@RequestHeader final String authorization) throws AuthenticationFailedException {
+    public ResponseEntity<SigninResponse> signin(@RequestHeader("authorization") final String authorization) throws AuthenticationFailedException {
         //Basic dXNlcm5hbWU6cGFzc3dvcmQ=
-        //above is a sample encoded text where the username is "username" and password is "password" seperated by a ":"
+        //above is a sample encoded text where the username is "username" and password is "password" separated by a ":"
         byte[] decode = Base64.getDecoder().decode(authorization.split("Basic ")[1]);
         String decodedText = new String(decode);
         String[] decodedArray = decodedText.split(":");
@@ -79,8 +79,8 @@ public class UserController {
         return new ResponseEntity<SigninResponse>(authorizedUserResponse, headers, HttpStatus.OK);
     }
 
-    @RequestMapping(method = RequestMethod.POST, path = "user/signout", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<SignoutResponse> signout(@RequestHeader final String accessToken) throws SignOutRestrictedException {
+    @RequestMapping(method = RequestMethod.POST, path = "/user/signout", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<SignoutResponse> signout(@RequestHeader("authorization") final String accessToken) throws SignOutRestrictedException {
         UserEntity userEntity = authenticationService.authenticateAccessToken(accessToken);
         SignoutResponse signOutResponse = new SignoutResponse().id(userEntity.getUuid()).message(SIGNED_OUT_SUCCESSFULLY);
         return new ResponseEntity<SignoutResponse>(signOutResponse, HttpStatus.OK);

@@ -8,6 +8,7 @@ import com.upgrad.quora.service.entity.UserAuthEntity;
 import com.upgrad.quora.service.entity.UserEntity;
 import com.upgrad.quora.service.exception.AuthorizationFailedException;
 import com.upgrad.quora.service.exception.InvalidQuestionException;
+import com.upgrad.quora.service.exception.QuestionNotFoundException;
 import com.upgrad.quora.service.exception.UserNotFoundException;
 import com.upgrad.quora.service.type.ActionType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,8 +89,7 @@ public class QuestionController {
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/question/all/{userId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<QuestionDetailsResponse> getAllQuestionsByUser(@PathVariable("userId") final String uuId, @RequestHeader("authorization") final String authorization) throws AuthorizationFailedException, QuestionNotFoundException, UserNotFoundException
-    {
+    public ResponseEntity<QuestionDetailsResponse> getAllQuestionsByUser(@PathVariable("userId") final String uuId, @RequestHeader("authorization") final String authorization) throws AuthorizationFailedException, QuestionNotFoundException, UserNotFoundException, QuestionNotFoundException {
         UserAuthEntity authorizedUser = userAdminService.getUserByAccessToken(authorization, ActionType.ALL_QUESTION_FOR_USER);
         //Get the list of questions for the user
         List<Question> questionList = questionService.getQuestionsForUser(uuId);
