@@ -29,23 +29,11 @@ public class QuestionService {
     @Autowired
     UserDao userDao;
 
-    /**
-     * method used for creating question instance in database.
-     *
-     * @param question question to be stored in database
-     * @return created question instance
-     */
     @Transactional(propagation = Propagation.REQUIRED)
     public Question createQuestion(Question question) {
         return questionDao.createQuestion(question);
     }
 
-    /**
-     * method used for getting questions for a authorized user
-     *
-     * @param uuId uuid of user whose questions are to be retrieved
-     * @return List of questions
-     */
     @Transactional(propagation = Propagation.REQUIRED)
     public List<Question> getQuestionsForUser(final String uuId) throws QuestionNotFoundException, UserNotFoundException {
         UserEntity user = userDao.getUser(uuId);
@@ -60,12 +48,6 @@ public class QuestionService {
         }
     }
 
-    /**
-     * methos used for getting all questions for any user.
-     *
-     * @return List of questions
-     * @throws QuestionNotFoundException exceptionto indicate no questions are available in database
-     */
     @Transactional(propagation = Propagation.REQUIRED)
     public List<Question> getAllQuestions() throws QuestionNotFoundException {
         List<Question> questionList = questionDao.getAllQuestions();

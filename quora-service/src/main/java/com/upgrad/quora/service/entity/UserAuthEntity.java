@@ -57,137 +57,63 @@ public class UserAuthEntity {
     private ZonedDateTime logoutAt;
 
 
-    /**
-     * accessor method for property id
-     *
-     * @return Integer id value
-     */
     public Integer getId() {
         return id;
     }
 
-    /**
-     * accessor method for property uuid
-     *
-     * @return uuid of the user
-     */
     public String getUuid() {
         return uuid;
     }
 
 
-    /**
-     * modifier method for property id
-     *
-     * @param uuid String uuid value
-     */
     public void setUuid(String uuid) {
         this.uuid = uuid;
     }
 
-    /**
-     * accessor method for property user
-     *
-     * @return UserEntity Object
-     */
+
     public UserEntity getUser() {
         return user;
     }
 
 
-    /**
-     * modifier method for property id
-     *
-     * @param id String id value
-     */
     public void setId(Integer id) {
         this.id = id;
     }
 
-
-    /**
-     * modifier method for property user
-     *
-     * @param user Userentity object
-     */
     public void setUser(UserEntity user) {
         this.user = user;
     }
 
-
-    /**
-     * accessor method for property accesstoken
-     *
-     * @return String indicating access token
-     */
     public String getAccessToken() {
         return accessToken;
     }
 
-
-    /**
-     * modifier method for property accesstoken
-     *
-     * @param accessToken user access token value
-     */
     public void setAccessToken(String accessToken) {
         this.accessToken = accessToken;
     }
 
-    /**
-     * accessor method for property loginAt
-     *
-     * @return date indicating login at time
-     */
     public ZonedDateTime getLoginAt() {
         return loginAt;
     }
 
-
-    /**
-     * modifier method for property loginAt
-     *
-     * @param loginAt date indicating loginat time
-     */
     public void setLoginAt(ZonedDateTime loginAt) {
         this.loginAt = loginAt;
     }
 
 
-    /**
-     * accessor method for property expiresAt
-     *
-     * @return ExpiryAt date
-     */
     public ZonedDateTime getExpiresAt() {
         return expiresAt;
     }
 
 
-    /**
-     * modifier method for property expiresAt
-     *
-     * @param expiresAt expiryAt date value
-     */
     public void setExpiresAt(ZonedDateTime expiresAt) {
         this.expiresAt = expiresAt;
     }
 
-    /**
-     * accessor method for property logoutAt
-     *
-     * @return LogoutAt date value
-     */
     public ZonedDateTime getLogoutAt() {
         return logoutAt;
     }
 
-
-    /**
-     * modifier method for property logoutAt
-     *
-     * @param logoutAt logoutAt date value
-     */
     public void setLogoutAt(ZonedDateTime logoutAt) {
         this.logoutAt = logoutAt;
     }
